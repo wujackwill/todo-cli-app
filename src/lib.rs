@@ -26,7 +26,7 @@ pub enum Commands {
     List {},
 
     /// complete tasks
-    Done { task: String },
+    Done { number: usize },
 
 }
 
@@ -41,17 +41,6 @@ pub fn check_file(file_path: &str) -> Result<File> {
 }
 
 
-// pub fn read_line(path: &str) ->  i32 {
-//     let file = BufReader::new(File::open(path).expect("Unable to open file"));
-//     let mut cnt  = 0;
-//     
-//     for _ in file.lines() {
-//         cnt = cnt + 1;
-//     }
-//     return  cnt
-// }
-//
-//
 pub fn read_line(path: &str, target_string: &str) -> Option<u32> {
     let file = BufReader::new(File::open(path).expect("Unable to open file"));
     let mut current_line_number = 1;

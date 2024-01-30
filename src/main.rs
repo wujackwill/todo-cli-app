@@ -46,8 +46,29 @@ fn main() {
             println!("{contents}");
         }
 
-        Commands::Done { task } => {
-            println!("Completing task: {}", task);
+        Commands::Done { number } => match check_file(file_path){
+            Ok(..) => {
+
+                let mut lines = BufReader::new(File::open(file_path).unwrap()).lines();
+                let mut contents = String::new();
+                let mut i = 1;
+                while let Some(line) = lines.next() {
+                    if i != number {
+                        contents.push_str(&line.unwrap());
+                        contents.push_str("\n");
+                    }else{
+                        // change [] to [x]
+                        let mut line = line.unwrap();
+                        line.replace_range(1..2, "x");
+                        contents.push_str(&line);
+                        contents.push_str("\n");
+
+                    }
+                    i += 1;
+                }
+                fs::write(file_path, contents).expect("Unable to write file");
+            }
+            Err(e) => println!("Error: {}", e),
         }
     }
 }
