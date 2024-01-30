@@ -1,11 +1,9 @@
 use anyhow::Context;
+use std::io::{BufRead, BufReader};
 use clap::Parser;
-use std::fs;
+use std::fs::{self, File};
 use std::io::prelude::*;
-use todo::check_file;
-use todo::Cli;
-use todo::Commands;
-use todo::read_line;
+use todo::*;
 
 fn main() {
     let args = Cli::parse();
@@ -21,9 +19,23 @@ fn main() {
             }
             Err(e) => println!("Error: {}", e),
         },
-        Commands::Remove { task } => {
-            println!("Removing task: {}", task);
-        }
+        Commands::RM { number } => match check_file(file_path) {
+            Ok(..) => {
+                let mut lines = BufReader::new(File::open(file_path).unwrap()).lines();
+                let mut contents = String::new();
+                let mut i = 1;
+                while let Some(line) = lines.next() {
+                    if i != number {
+                        contents.push_str(&line.unwrap());
+                        contents.push_str("\n");
+                    }
+                    i += 1;
+                }
+                fs::write(file_path, contents).expect("Unable to write file");
+
+            }
+            Err(e) => println!("Error: {}", e),
+        },
 
         Commands::List {} => {
             let file_path = "C:\\Users\\jackwill\\Desktop\\todo.txt";

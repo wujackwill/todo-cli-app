@@ -8,7 +8,7 @@ use std::io::{BufRead, BufReader};
 /// A fictional versioning CLI
 #[derive(Debug, Parser)] // requires `derive` feature
 #[command(name = "todo")]
-#[command(about = "a todo CLI writtin in Rust", long_about = None)]
+#[command(about = "Yet another todo CLI app written in Rust", long_about = None)]
 pub struct Cli {
     #[command(subcommand)]
     pub command: Commands,
@@ -16,16 +16,16 @@ pub struct Cli {
 
 #[derive(Debug, Subcommand)]
 pub enum Commands {
-    /// add todo
+    /// add tasks
     Add { task: String },
 
-    /// remove todo
-    Remove { task: String },
+    /// remove tasks
+    RM { number: usize },
 
-    /// list todos
+    /// list tasks
     List {},
 
-    /// complete todo
+    /// complete tasks
     Done { task: String },
 
 }
@@ -54,7 +54,7 @@ pub fn check_file(file_path: &str) -> Result<File> {
 //
 pub fn read_line(path: &str, target_string: &str) -> Option<u32> {
     let file = BufReader::new(File::open(path).expect("Unable to open file"));
-    let mut current_line_number = 0;
+    let mut current_line_number = 1;
 
     for line in file.lines() {
         current_line_number += 1;
