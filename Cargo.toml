@@ -8,7 +8,7 @@ description = "yet another todo CLI app written in Rust"
 readme = "README.md"
 homepage = "https://github.com/wujackwill/todo"
 repository = "https://github.com/wujackwill/todo"
-keywords = ["cli", "todo app"]
+keywords = ["cli"]
 categories = ["command-line-utilities"]
 
 
