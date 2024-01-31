@@ -1,4 +1,5 @@
 use anyhow::Context;
+use std::env;
 use std::io::{BufRead, BufReader};
 use clap::Parser;
 use std::fs::{self, File};
@@ -7,11 +8,16 @@ use todo::*;
 
 fn main() {
     let args = Cli::parse();
-    let file_path = "C:\\Users\\jackwill\\Desktop\\todo.txt";
+    let file_path = match args.file{
+        Some(file) => file,
+        None => String::from(format!("{}/todo.txt", env::var("HOME").unwrap())),
+    };
+
+
     match args.command {
-        Commands::Add { task } => match check_file(file_path) {
+        Commands::Add { task } => match check_file(&file_path) {
             Ok(mut todofile) => {
-                writeln!(todofile, "[{}] {}",  read_line("C:\\Users\\jackwill\\Desktop\\todo.txt",  &task).unwrap(),task)
+                writeln!(todofile, "[{}] {}",  read_line(&file_path,  &task).unwrap(),task)
                     .with_context(|| format!("Failed to write to file: {}", file_path))
                     .expect("Failed to write to file");
 
@@ -19,9 +25,9 @@ fn main() {
             }
             Err(e) => println!("Error: {}", e),
         },
-        Commands::RM { number } => match check_file(file_path) {
+        Commands::RM { number } => match check_file(&file_path) {
             Ok(..) => {
-                let mut lines = BufReader::new(File::open(file_path).unwrap()).lines();
+                let mut lines = BufReader::new(File::open(&file_path).unwrap()).lines();
                 let mut contents = String::new();
                 let mut i = 1;
                 while let Some(line) = lines.next() {
@@ -38,18 +44,17 @@ fn main() {
         },
 
         Commands::List {} => {
-            let file_path = "C:\\Users\\jackwill\\Desktop\\todo.txt";
 
             let contents =
-                fs::read_to_string(file_path).expect("Should have been able to read the file");
+                fs::read_to_string(&file_path).expect("Should have been able to read the file");
 
             println!("{contents}");
         }
 
-        Commands::Done { number } => match check_file(file_path){
+        Commands::Done { number } => match check_file(&file_path){
             Ok(..) => {
 
-                let mut lines = BufReader::new(File::open(file_path).unwrap()).lines();
+                let mut lines = BufReader::new(File::open(&file_path).unwrap()).lines();
                 let mut contents = String::new();
                 let mut i = 1;
                 while let Some(line) = lines.next() {
@@ -66,22 +71,10 @@ fn main() {
                     }
                     i += 1;
                 }
-                fs::write(file_path, contents).expect("Unable to write file");
+                fs::write(&file_path, contents).expect("Unable to write file");
             }
             Err(e) => println!("Error: {}", e),
         }
 
-
-
-        Commands::Init { path } => {
-            let initial_file_path = path.clone();
-
-            // Append "todo.txt" to the end of the file_path
-            let file_path = format!("{}\\{}", initial_file_path, "todo.txt");
-
-            // Create a new File at the specified path
-            let _todofile = File::create(&file_path);
-            println!("Creating file: {}", file_path);
-        }
     }
 }

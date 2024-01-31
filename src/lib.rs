@@ -9,14 +9,15 @@ use std::io::{BufRead, BufReader};
 #[command(name = "todo")]
 #[command(about = "Yet another todo CLI app written in Rust", long_about = None)]
 pub struct Cli {
+    /// The path to the file to read/write!
+    #[arg(short, long)]
+    pub file: Option<String>,
     #[command(subcommand)]
     pub command: Commands,
 }
 
 #[derive(Debug, Subcommand)]
 pub enum Commands {
-    /// create a new todo list
-    Init { path: String },
 
     /// add tasks
     Add { task: String },
