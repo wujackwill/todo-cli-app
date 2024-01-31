@@ -3,6 +3,13 @@
 ![Demo](./demo.gif)
 
 
+## Note(Known Issue)
+
+As the default todo.txt file path is at `~/todo.txt` please make sure that you 
+have **created the todo.txt file in your home directory** before you run command like `todo-cli-app list` 
+with default file path.
+
+
 ## Installation 
 
 ```
