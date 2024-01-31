@@ -6,7 +6,7 @@ use std::io::{BufRead, BufReader};
 
 /// A fictional versioning CLI
 #[derive(Debug, Parser)] // requires `derive` feature
-#[command(name = "todo")]
+#[command(name = "todo-cli")]
 #[command(about = "Yet another todo CLI app written in Rust", long_about = None)]
 pub struct Cli {
     /// The path to the file to read/write!

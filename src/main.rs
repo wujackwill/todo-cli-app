@@ -1,10 +1,10 @@
 use anyhow::Context;
+use todo_cli::*;
 use std::env;
 use std::io::{BufRead, BufReader};
 use clap::Parser;
 use std::fs::{self, File};
 use std::io::prelude::*;
-use todo::*;
 
 fn main() {
     let args = Cli::parse();
