@@ -70,5 +70,18 @@ fn main() {
             }
             Err(e) => println!("Error: {}", e),
         }
+
+
+
+        Commands::Init { path } => {
+            let initial_file_path = path.clone();
+
+            // Append "todo.txt" to the end of the file_path
+            let file_path = format!("{}\\{}", initial_file_path, "todo.txt");
+
+            // Create a new File at the specified path
+            let _todofile = File::create(&file_path);
+            println!("Creating file: {}", file_path);
+        }
     }
 }

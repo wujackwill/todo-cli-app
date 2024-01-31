@@ -1,9 +1,8 @@
-use anyhow::{Result, Context};
+use anyhow::{Context, Result};
 use clap::{Parser, Subcommand};
-use std::fs::OpenOptions;
 use std::fs::File;
+use std::fs::OpenOptions;
 use std::io::{BufRead, BufReader};
-
 
 /// A fictional versioning CLI
 #[derive(Debug, Parser)] // requires `derive` feature
@@ -16,6 +15,9 @@ pub struct Cli {
 
 #[derive(Debug, Subcommand)]
 pub enum Commands {
+    /// create a new todo list
+    Init { path: String },
+
     /// add tasks
     Add { task: String },
 
@@ -27,7 +29,6 @@ pub enum Commands {
 
     /// complete tasks
     Done { number: usize },
-
 }
 
 pub fn check_file(file_path: &str) -> Result<File> {
@@ -39,7 +40,6 @@ pub fn check_file(file_path: &str) -> Result<File> {
 
     Ok(todofile)
 }
-
 
 pub fn read_line(path: &str, target_string: &str) -> Option<u32> {
     let file = BufReader::new(File::open(path).expect("Unable to open file"));
@@ -54,11 +54,9 @@ pub fn read_line(path: &str, target_string: &str) -> Option<u32> {
             }
         }
     }
-    if  current_line_number == 0 {
+    if current_line_number == 0 {
         return Some(0);
-    }else{
+    } else {
         return Some(current_line_number);
     }
-
-
 }
