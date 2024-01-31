@@ -2,8 +2,15 @@
 name = "todo"
 version = "0.1.0"
 edition = "2021"
+authors = ["Jack Will <wujackwill@outlook.com>"]
+license = "MIT"
+description = "yet another todo CLI app written in Rust"
+readme = "README.md"
+homepage = "https://github.com/wujackwill/todo"
+repository = "https://github.com/wujackwill/todo"
+keywords = ["cli", "todo app"]
+categories = ["command-line-utilities"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 anyhow = "1.0.79"
