@@ -5,9 +5,11 @@
 
 ## Note(Known Issue)
 
-As the default todo.txt file path is at `~/todo.txt` please make sure that you 
+~~As the default todo.txt file path is at `~/todo.txt` please make sure that you 
 have **created the todo.txt file in your home directory** before you run command like `todo-cli-app list` 
-with default file path.
+with default file path.~~
+
+Fix: please run `todo-cli-app init` at your home directory to create the todo.txt file, then you can use the default path and run `todo-cli-app list` to list the tasks ,etc...
 
 
 ## Installation 
@@ -24,14 +26,18 @@ todo-cli-app --help
 ```
 Yet another todo CLI app written in Rust
 
-Usage: todo-cli-app.exe [OPTIONS] <COMMAND>
+Usage: todo-cli-app [OPTIONS] <COMMAND>
 
 Commands:
-  add   add tasks
-  rm    remove tasks
-  list  list tasks
-  done  complete tasks
-  help  Print this message or the help of the given subcommand(s)
+  init   Initialize a new todo file
+  add    add tasks
+  rm     remove tasks
+  list   list tasks
+  done   complete tasks
+  clear  clear all tasks
+  sort   sort tasks
+  edit   edit a task
+  help   Print this message or the help of the given subcommand(s)
 
 Options:
   -f, --file <FILE>  The path to the file to read/write!
@@ -48,7 +54,7 @@ Options:
 ## Difference
 
 ```
-# todo-cli-app -f PATH [COMMAND] to have more than one todo list. 
+# todo-cli-app -f PATH [COMMAND] to have more lists or sync the txt file between different devices
 
 todo-cli-app -f C:\Users\jackwill\Desktop\todo.txt add "Buy milk"
 
