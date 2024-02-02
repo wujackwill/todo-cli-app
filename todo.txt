@@ -1,2 +1,0 @@
-[1] buy milk
-[2] buy car
