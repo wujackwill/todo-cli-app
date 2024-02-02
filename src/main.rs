@@ -154,9 +154,12 @@ fn main() {
                             .expect("Failed to read line");
 
                         // Check if the original line already contains [number]
-                        // If yes, keep it unchanged; otherwise, add [number]
-                        if line.contains(&format!("[{}]", number)) {
-                            new_contents.push(line);
+                        // If yes, replace the content between [number] and the next space
+                        // If not, add [number] to the beginning of the new task
+                        if let Some(idx) = line.find(&format!("[{}]", number)) {
+                            let prefix = &line[..idx];
+                            let suffix = new_task.trim();
+                            new_contents.push(format!("{}[{}] {}", prefix, number, suffix));
                         } else {
                             new_contents.push(format!("[{}] {}", number, new_task.trim()));
                         }
@@ -179,5 +182,10 @@ fn main() {
 
             Err(e) => println!("Error: {}", e),
         },
+
+
+
+
+
     }
 }
