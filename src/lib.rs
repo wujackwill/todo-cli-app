@@ -19,7 +19,7 @@ pub struct Cli {
 #[derive(Debug, Subcommand)]
 pub enum Commands {
     /// Initialize a new todo file
-    Init {path: Option<String>},
+    Init { path: Option<String> },
 
     /// add tasks
     Add { task: String },
@@ -40,7 +40,7 @@ pub enum Commands {
     SORT {},
 
     /// edit a task
-    EDIT {number: usize}
+    EDIT { number: usize },
 }
 
 pub fn check_file(file_path: &str) -> Result<File> {
@@ -72,5 +72,3 @@ pub fn read_line(path: &str, target_string: &str) -> Option<u32> {
         return Some(current_line_number);
     }
 }
-
-

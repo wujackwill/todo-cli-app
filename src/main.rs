@@ -1,10 +1,9 @@
 use anyhow::Context;
 use clap::Parser;
-use std::fmt::format;
-use std::{env, io};
 use std::fs::{self, File, OpenOptions};
 use std::io::prelude::*;
 use std::io::{BufRead, BufReader};
+use std::{env, io};
 use todo_cli_app::*;
 
 fn main() {
@@ -65,12 +64,15 @@ fn main() {
             Err(e) => println!("Error: {}", e),
         },
 
-        Commands::List {} => {
-            let contents =
-                fs::read_to_string(&file_path).expect("Should have been able to read the file");
+        Commands::List {} => match check_file(&file_path) {
+            Ok(_todofile) => {
+                let contents =
+                    fs::read_to_string(&file_path).expect("Should have been able to read the file");
 
-            println!("{contents}");
-        }
+                println!("{contents}");
+            }
+            Err(e) => println!("Error: {}", e),
+        },
 
         Commands::Done { number } => match check_file(&file_path) {
             Ok(..) => {
@@ -176,7 +178,6 @@ fn main() {
             }
 
             Err(e) => println!("Error: {}", e),
-        }
-
+        },
     }
 }
