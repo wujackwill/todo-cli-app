@@ -32,6 +32,9 @@ pub enum Commands {
 
     /// complete tasks
     Done { number: usize },
+
+    /// clear all tasks
+    Clear {},
 }
 
 pub fn check_file(file_path: &str) -> Result<File> {

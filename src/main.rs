@@ -94,5 +94,10 @@ fn main() {
             Err(e) => println!("Error: {}", e),
         }
 
+
+        Commands::Clear {} => {
+            fs::write(&file_path, "").expect("Unable to write file");
+        }
+
     }
 }
