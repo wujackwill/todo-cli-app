@@ -18,6 +18,8 @@ pub struct Cli {
 
 #[derive(Debug, Subcommand)]
 pub enum Commands {
+    /// Initialize a new todo file
+    Init { path: Option<String> },
 
     /// add tasks
     Add { task: String },
@@ -30,6 +32,15 @@ pub enum Commands {
 
     /// complete tasks
     Done { number: usize },
+
+    /// clear all tasks
+    Clear {},
+
+    /// sort tasks
+    SORT {},
+
+    /// edit a task
+    EDIT { number: usize },
 }
 
 pub fn check_file(file_path: &str) -> Result<File> {
