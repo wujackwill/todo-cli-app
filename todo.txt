@@ -1,4 +1,2 @@
-[1] three task
-[2] four task
-[x] one task
-[x] two task
+[1] buy milk
+[2] buy car

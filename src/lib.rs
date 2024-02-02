@@ -38,6 +38,9 @@ pub enum Commands {
 
     /// sort tasks
     SORT {},
+
+    /// edit a task
+    EDIT {number: usize}
 }
 
 pub fn check_file(file_path: &str) -> Result<File> {
