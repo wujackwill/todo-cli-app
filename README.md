@@ -1,7 +1,13 @@
 ## Demo
 
+*Use default todo.txt path*
 ![Demo](./demo.gif)
 
+*Use custom todo.txt path*
+```
+# todo-cli-app -f PATH [COMMAND] to add tasks, etc... It will automatically create the txt file
+todo-cli-app -f /mnt/c/Users/jackwill/Desktop/todo.txt add "hello world"
+```
 
 ## Note(Known Issue)
 
