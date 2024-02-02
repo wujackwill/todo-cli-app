@@ -99,5 +99,45 @@ fn main() {
             fs::write(&file_path, "").expect("Unable to write file");
         }
 
+
+        Commands::SORT {} => {
+            let contents =
+                fs::read_to_string(&file_path).expect("Should have been able to read the file");
+            let mut lines: Vec<String> = contents.lines().map(|s| s.to_string()).collect();
+            lines.sort();
+            let sorted_contents = lines.join("\n");
+            fs::write(&file_path, sorted_contents).expect("Unable to write file");
+            // correct number in []
+
+            let mut lines = BufReader::new(File::open(&file_path).unwrap()).lines();
+            let mut contents = String::new();
+            let mut i = 1;
+            // skip the line begins with [x]
+            
+            while let Some(line) = lines.next() {
+                if line.as_ref().unwrap().starts_with("[x]") {
+                    contents.push_str(&line.unwrap());
+                    contents.push_str("\n");
+                }else{
+                    // replace the  [number]
+                    let mut line = line.unwrap();
+                    line.replace_range(1..2, &i.to_string());
+                    contents.push_str(&line);
+                    contents.push_str("\n");
+                    i += 1;
+                }
+            }
+
+            fs::write(&file_path, contents).expect("Unable to write file");
+
+            let contents =
+                fs::read_to_string(&file_path).expect("Should have been able to read the file");
+
+            println!("{contents}");
+
+
+
+        }
+
     }
 }

@@ -35,6 +35,9 @@ pub enum Commands {
 
     /// clear all tasks
     Clear {},
+
+    /// sort tasks
+    SORT {},
 }
 
 pub fn check_file(file_path: &str) -> Result<File> {
@@ -66,3 +69,5 @@ pub fn read_line(path: &str, target_string: &str) -> Option<u32> {
         return Some(current_line_number);
     }
 }
+
+
