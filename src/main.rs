@@ -13,8 +13,26 @@ fn main() {
         None => String::from(format!("{}/todo.txt", env::var("HOME").unwrap())),
     };
 
-
     match args.command {
+        Commands::Init { path } => {
+                let file_path = match path {
+                    Some(custom_path) => {
+                        format!("{}/todo.txt", custom_path)
+                    }
+                    None => {
+                        format!("{}/todo.txt", env::var("HOME").unwrap())
+                    }
+                };
+
+                if fs::metadata(&file_path).is_ok() {
+                    println!("File exists at: {:?}", file_path);
+                } else {
+                    println!("File does not exist at: {:?}", file_path);
+                    let _= check_file(&file_path);
+                    println!("File created at: {:?}", file_path)
+                }
+
+        }
         Commands::Add { task } => match check_file(&file_path) {
             Ok(mut todofile) => {
                 writeln!(todofile, "[{}] {}",  read_line(&file_path,  &task).unwrap(),task)

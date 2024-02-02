@@ -18,6 +18,8 @@ pub struct Cli {
 
 #[derive(Debug, Subcommand)]
 pub enum Commands {
+    /// Initialize a new todo file
+    Init {path: Option<String>},
 
     /// add tasks
     Add { task: String },
