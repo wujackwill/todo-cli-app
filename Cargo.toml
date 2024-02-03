@@ -1,6 +1,6 @@
 [package]
 name = "todo-cli-app"
-version = "0.3.1"
+version = "0.3.3"
 edition = "2021"
 authors = ["Jack Will <wujackwill@outlook.com>"]
 license = "MIT"

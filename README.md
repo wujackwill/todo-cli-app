@@ -9,11 +9,7 @@
 todo-cli-app -f /mnt/c/Users/jackwill/Desktop/todo.txt add "hello world"
 ```
 
-## Note(Known Issue)
-
-~~As the default todo.txt file path is at `~/todo.txt` please make sure that you 
-have **created the todo.txt file in your home directory** before you run command like `todo-cli-app list` 
-with default file path.~~
+## Note
 
 Fix: please run `todo-cli-app init` at your home directory to create the todo.txt file, then you can use the default path and run `todo-cli-app list` to list the tasks ,etc...
 
