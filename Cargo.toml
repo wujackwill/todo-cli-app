@@ -1,6 +1,6 @@
 [package]
 name = "todo-cli-app"
-version = "0.3.3"
+version = "0.4.0"
 edition = "2021"
 authors = ["Jack Will <wujackwill@outlook.com>"]
 license = "MIT"
@@ -15,3 +15,4 @@ categories = ["command-line-utilities"]
 [dependencies]
 anyhow = "1.0.79"
 clap = { version = "4.4.18", features = ["derive"] }
+regex = "1.10.3"
