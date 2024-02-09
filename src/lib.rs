@@ -41,6 +41,9 @@ pub enum Commands {
 
     /// edit a task
     EDIT { number: usize },
+
+    /// add tags for the tasks sync from other device
+    SYNC {},
 }
 
 pub fn check_file(file_path: &str) -> Result<File> {

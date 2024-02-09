@@ -39,6 +39,7 @@ Commands:
   clear  clear all tasks
   sort   sort tasks
   edit   edit a task
+  sync   add tags for the tasks sync from other device
   help   Print this message or the help of the given subcommand(s)
 
 Options:

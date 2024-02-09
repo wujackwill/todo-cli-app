@@ -5,6 +5,7 @@ use std::io::prelude::*;
 use std::io::{BufRead, BufReader};
 use std::{env, io};
 use todo_cli_app::*;
+use regex::Regex;
 
 fn main() {
     let args = Cli::parse();
@@ -181,11 +182,47 @@ fn main() {
             }
 
             Err(e) => println!("Error: {}", e),
-        },
 
+        }
+        Commands::SYNC {} => {
+            // Read the file and create a buffered reader
+            let file = File::open(&file_path).expect("Unable to open file");
+            let reader = BufReader::new(file);
+            let mut contents = String::new();
+            let mut line_number = 0;
+            let re_skip = Regex::new(r"^\[x\]").unwrap();
+            let re_num = Regex::new(r"^\[(\d+)\]").unwrap();
 
+            // Iterate over each line in the file
+            for line in reader.lines() {
+                // Unwrap the line or exit if there's an error
+                let line = line.expect("Unable to read line");
 
+                if re_skip.is_match(&line) {
+                    // If line starts with "[x]", append it to contents without modifying
+                    contents.push_str(&line);
+                } else {
+                    // If the line doesn't start with "[x]", increment line number and prepend it with the new line number
+                    line_number += 1;
+                    let line_with_number = if let Some(caps) = re_num.captures(&line) {
+                        // If the line already has a number, replace it with the new line number
+                        format!("[{}] {}", line_number, &line[caps[1].len() + 2..].trim_start())
+                    } else {
+                        // If the line doesn't have a number, add the new line number
+                        format!("[{}] {}", line_number, line.trim_start())
+                    };
+                    contents.push_str(&line_with_number);
+                }
 
+                // Add a newline character to the end of the line
+                contents.push('\n');
+            }
+            fs::write(&file_path, contents).expect("Unable to write file");
 
+            let contents =
+                fs::read_to_string(&file_path).expect("Should have been able to read the file");
+
+            println!("{contents}");
+        }
     }
 }
