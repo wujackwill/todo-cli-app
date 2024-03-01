@@ -48,6 +48,18 @@ Options:
   -h, --help         Print help
 ```
 
+## Tips
+
+In order not to type the long command when using another todo.txt file,add the code below to your zshrc or bashrc
+
+```
+todo() {
+   todo-cli-app -f Path of todo.txt file "$@"
+   # like todo-cli-app -f /mnt/c/Users/jackwill/todo/todo.txt "$@"
+}
+```
+
+
 
 ## Inspired by 
 
