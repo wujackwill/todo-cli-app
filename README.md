@@ -40,12 +40,12 @@ Commands:
   sort   sort tasks
   edit   edit a task
   sync   add tags for the tasks sync from other device
+  clean  remove finished tasks
   help   Print this message or the help of the given subcommand(s)
 
 Options:
   -f, --file <FILE>  The path to the file to read/write!
   -h, --help         Print help
-
 ```
 
 
