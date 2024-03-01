@@ -44,6 +44,9 @@ pub enum Commands {
 
     /// add tags for the tasks sync from other device
     SYNC {},
+
+    /// remove finished tasks
+    CLEAN {},
 }
 
 pub fn check_file(file_path: &str) -> Result<File> {

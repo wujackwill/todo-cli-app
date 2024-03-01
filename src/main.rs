@@ -223,6 +223,97 @@ fn main() {
                 fs::read_to_string(&file_path).expect("Should have been able to read the file");
 
             println!("{contents}");
+       
+        },
+        Commands::CLEAN {} => {
+            // Read the file and create a buffered reader
+            let file = File::open(&file_path).expect("Unable to open file");
+            let reader = BufReader::new(file);
+            let mut contents = String::new();
+
+            // Iterate over each line in the file
+            for line in reader.lines() {
+                // Unwrap the line or exit if there's an error
+                let line = line.expect("Unable to read line");
+
+                // Check if the line starts with "[x]"
+                if line.trim_start().starts_with("[x]") {
+                    // If it does, skip this line
+                    continue;
+                }
+
+                // Otherwise, append the line to the contents
+                contents.push_str(&line);
+                contents.push('\n');
+            }
+
+            // Write the modified contents back to the file
+            fs::write(&file_path, contents).expect("Unable to write file");
+            let contents =
+                fs::read_to_string(&file_path).expect("Should have been able to read the file");
+            let mut lines: Vec<String> = contents.lines().map(|s| s.to_string()).collect();
+            lines.sort();
+            let sorted_contents = lines.join("\n");
+            fs::write(&file_path, sorted_contents).expect("Unable to write file");
+            // correct number in []
+
+            let mut lines = BufReader::new(File::open(&file_path).unwrap()).lines();
+            let mut contents = String::new();
+            let mut i = 1;
+            // skip the line begins with [x]
+
+            while let Some(line) = lines.next() {
+                if line.as_ref().unwrap().starts_with("[x]") {
+                    contents.push_str(&line.unwrap());
+                    contents.push_str("\n");
+                } else {
+                    // replace the  [number]
+                    let mut line = line.unwrap();
+                    line.replace_range(1..2, &i.to_string());
+                    contents.push_str(&line);
+                    contents.push_str("\n");
+                    i += 1;
+                }
+            }
+
+            fs::write(&file_path, contents).expect("Unable to write file");
+
+            let contents =
+                fs::read_to_string(&file_path).expect("Should have been able to read the file");
+
+
+            let mut lines: Vec<String> = contents.lines().map(|s| s.to_string()).collect();
+            lines.sort();
+            let sorted_contents = lines.join("\n");
+            fs::write(&file_path, sorted_contents).expect("Unable to write file");
+            // correct number in []
+
+            let mut lines = BufReader::new(File::open(&file_path).unwrap()).lines();
+            let mut contents = String::new();
+            let mut i = 1;
+            // skip the line begins with [x]
+
+            while let Some(line) = lines.next() {
+                if line.as_ref().unwrap().starts_with("[x]") {
+                    contents.push_str(&line.unwrap());
+                    contents.push_str("\n");
+                } else {
+                    // replace the  [number]
+                    let mut line = line.unwrap();
+                    line.replace_range(1..2, &i.to_string());
+                    contents.push_str(&line);
+                    contents.push_str("\n");
+                    i += 1;
+                }
+            }
+
+            fs::write(&file_path, contents).expect("Unable to write file");
+
+            let contents =
+                fs::read_to_string(&file_path).expect("Should have been able to read the file");
+
+            println!("{contents}");
         }
+
     }
 }
